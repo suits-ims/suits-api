@@ -16,8 +16,14 @@ What things you need to install the software and how to install them
 
 ### Running
 
+Run application
 ```
 ./gradlew bootRun
+```
+
+Run keycloak
+```
+docker run -p 8081:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -e KEYCLOAK_IMPORT=/tmp/suits-ims-realm.json -v /tmp/suits-ims-realm.json:/tmp/suits-ims-realm.json jboss/keycloak
 ```
 
 ## Authors
