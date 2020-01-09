@@ -39,6 +39,14 @@
   "roles": {
     "realm": [
       {
+        "id": "cf176204-f09e-4234-8668-24c6a6bef2a9",
+        "name": "manager",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "suits-ims",
+        "attributes": {}
+      },
+      {
         "id": "3a4f7160-4cbb-4e91-a57a-9346cfcc8c57",
         "name": "offline_access",
         "description": "${role_offline-access}",
