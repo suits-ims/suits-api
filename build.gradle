@@ -36,6 +36,7 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 
 	runtimeOnly 'com.h2database:h2'
+	compile group: 'org.postgresql', name: 'postgresql', version: '42.2.1'
 
 	annotationProcessor 'org.projectlombok:lombok'
 
