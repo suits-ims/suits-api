@@ -1,6 +1,8 @@
-# Suits
+# Suits API &middot; ![](https://github.com/suits-ims/suits-api/workflows/CI/badge.svg)
 
 Suits - Interview Management System
+
+Suits API - application to manage candidates for interviews
 
 ## Getting Started
 
