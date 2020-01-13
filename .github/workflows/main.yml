@@ -4,10 +4,17 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v1
-    - name: Build application
-      run: make build
+      - uses: actions/checkout@v1
+      - name: Build
+        run: make build
+      - name: Image
+        run: make image
+      - name: Deploy
+        env:
+          HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_TOKEN }}
+          HEROKU_APP_NAME: "suits-api"
+        if: github.ref == 'refs/heads/master' && job.status == 'success'
+        run: make deploy
