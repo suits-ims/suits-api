@@ -19,7 +19,7 @@ DOCKER_COMPOSE ?= \
     IMAGE=${IMAGE} \
     USER_ID=${USER_ID} \
     TAG=${TAG} \
-    docker-compose ${DOCKER_COMPOSE_OPTS} -f ./docker/docker-compose.build.yml
+    docker-compose ${DOCKER_COMPOSE_OPTS} -f ./docker/docker-compose.build.yml -f ./docker/docker-compose.services.yml
 
 JAVA_SOURCE_FILES := $(shell find ./src -name '*.java')
 GRADLE ?= ${DOCKER_COMPOSE} run --rm gradle
@@ -29,10 +29,13 @@ HEROKU ?= heroku
 build:
 	${GRADLE} build -x test
 
+run-services:
+	${DOCKER_COMPOSE} up
+
 run:
 	${DOCKER_COMPOSE} -f ./docker/docker-compose.yml up --force-recreate app
 
-.PHONY: build run
+.PHONY: build run run-services
 
 image: build
 	${DOCKER} build -t ${IMAGE} -f docker/Dockerfile ./build/libs/

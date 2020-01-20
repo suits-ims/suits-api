@@ -13,19 +13,19 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 ```
-./gradlew clean build
+make build
 ```
 
 ### Running
 
 Run application
 ```
-./gradlew bootRun
+make run
 ```
 
-Run keycloak
+Run only services
 ```
-docker run -p 8081:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -e KEYCLOAK_IMPORT=/tmp/suits-ims-realm.json -v /tmp/suits-ims-realm.json:/tmp/suits-ims-realm.json jboss/keycloak
+make run-services
 ```
 
 ## Authors
