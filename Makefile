@@ -1,7 +1,7 @@
 NAME  	:= $(shell ./gradlew properties -q | grep "name:" | awk '{print $$2}')
 TAG   	?= $(shell ./gradlew properties -q | grep "version:" | awk '{print $$2}')
 USER_ID ?= $(shell stat -c "%u:%g" .)
-REPO  	:= suits-ims
+REPO  	:= suitsims
 IMAGE 	:= ${REPO}/${NAME}:${TAG}
 
 DOCKER_REGISTRY     := registry.heroku.com
@@ -39,6 +39,10 @@ run:
 
 image: build
 	${DOCKER} build -t ${IMAGE} -f docker/Dockerfile ./build/libs/
+
+push:
+	${DOCKER} login --username ${REPOSITORY_USERNAME} --password ${REPOSITORY_PASSWORD}
+	${DOCKER} push ${IMAGE}
 
 deploy:
 	${DOCKER} login --username=_ --password=${HEROKU_API_TOKEN} ${DOCKER_REGISTRY}
