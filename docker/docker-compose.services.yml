@@ -3,8 +3,8 @@ version: '3.5'
 services:
   suits-database:
     image: postgres:11
-    expose:
-      - 5432
+    ports:
+      - 5432:5432
     environment:
       - POSTGRES_USER=suits
       - POSTGRES_PASSWORD=suits

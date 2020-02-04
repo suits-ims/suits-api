@@ -1,7 +1,8 @@
 package com.suits.api.service;
 
-import com.suits.api.dto.CandidateDto;
+import com.suits.api.dto.CandidateListItemResponseDto;
 import com.suits.api.dto.CandidateResponseDto;
+import com.suits.api.dto.NewCandidateDto;
 import com.suits.api.entity.Candidate;
 import com.suits.api.entity.Interviewer;
 import com.suits.api.entity.Manager;
@@ -32,8 +33,12 @@ public class CandidateService {
     private ManagerRepository managerRepository;
     private InterviewerRepository interviewerRepository;
 
-    public List<CandidateResponseDto> getCandidates() {
-        return candidateMapper.toCandidateResponseDtoList(candidateRepository.findAll());
+    public List<CandidateListItemResponseDto> getCandidates() {
+        return candidateMapper.toCandidateListItemResponseDtoList(candidateRepository.findAll());
+    }
+
+    public CandidateResponseDto getCandidateById(final Long id) {
+        return candidateRepository.findById(id).map(candidateMapper::toCandidateResponseDto).orElseGet(CandidateResponseDto::new);
     }
 
     public List<CandidateResponseDto> getInterviewedByMe() {
@@ -47,13 +52,12 @@ public class CandidateService {
     }
 
 
-    public void addCandidate(final CandidateDto candidateDto) {
+    public Long addCandidate(final NewCandidateDto candidateDto) {
         Candidate candidate = candidateMapper.toCandidate(candidateDto);
 
         candidate.setManager(getManager());
-        candidate.setInterviewers(getInterviewers(candidateDto.getInterviewers()));
 
-        candidateRepository.save(candidate);
+        return candidateRepository.save(candidate).getCandidateId();
     }
 
     private List<Interviewer> getInterviewers(List<UUID> interviewers) {

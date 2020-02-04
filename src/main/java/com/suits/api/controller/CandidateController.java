@@ -1,7 +1,8 @@
 package com.suits.api.controller;
 
-import com.suits.api.dto.CandidateDto;
+import com.suits.api.dto.CandidateListItemResponseDto;
 import com.suits.api.dto.CandidateResponseDto;
+import com.suits.api.dto.NewCandidateDto;
 import com.suits.api.service.CandidateService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
@@ -19,8 +20,15 @@ public class CandidateController {
     @GetMapping
     @Secured({"ROLE_manager"})
     @ResponseBody
-    public List<CandidateResponseDto> getCandidates() {
+    public List<CandidateListItemResponseDto> getCandidates() {
         return candidateService.getCandidates();
+    }
+
+    @GetMapping("/{id}")
+    @Secured({"ROLE_manager"})
+    @ResponseBody
+    public CandidateResponseDto getCandidateById(@PathVariable Long id) {
+        return candidateService.getCandidateById(id);
     }
 
     @GetMapping("/managedByMe")
@@ -39,8 +47,8 @@ public class CandidateController {
 
     @PostMapping
     @Secured("ROLE_manager")
-    public void addCandidate(@RequestBody final CandidateDto candidateDto) {
-        candidateService.addCandidate(candidateDto);
+    public Long addCandidate(@RequestBody final NewCandidateDto candidate) {
+        return candidateService.addCandidate(candidate);
     }
 }
 

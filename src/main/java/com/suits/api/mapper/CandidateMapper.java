@@ -1,7 +1,9 @@
 package com.suits.api.mapper;
 
 import com.suits.api.dto.CandidateDto;
+import com.suits.api.dto.CandidateListItemResponseDto;
 import com.suits.api.dto.CandidateResponseDto;
+import com.suits.api.dto.NewCandidateDto;
 import com.suits.api.entity.Candidate;
 import com.suits.api.entity.Interviewer;
 import org.mapstruct.Mapper;
@@ -16,9 +18,15 @@ import java.util.UUID;
 public abstract class CandidateMapper {
     public abstract Candidate toCandidate(CandidateDto candidateDto);
 
+    public abstract Candidate toCandidate(NewCandidateDto candidateDto);
+
     public Interviewer toInterviewer(final UUID uuid) {
         return Interviewer.builder().guid(uuid).build();
     }
+
+    public abstract List<CandidateListItemResponseDto> toCandidateListItemResponseDtoList(List<Candidate> candidates);
+
+    public abstract CandidateListItemResponseDto toCandidateListItemResponseDto(Candidate candidate);
 
     public abstract List<CandidateResponseDto> toCandidateResponseDtoList(List<Candidate> candidates);
 
